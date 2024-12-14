@@ -3,10 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixi-Skia Project</title>
+    <title>Pixia Project</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="src/index.ts"></script>
+    <div id="app">
+      <div class="controls">
+        <button class="button" id="pdf-button">
+          Export to PDF
+        </button>
+        <button class="button">
+          Add Random Image
+        </button>
+      </div>
+    </div>
+    <script type="module" src="src/app/app.ts"></script>
   </body>
 </html>
