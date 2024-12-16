@@ -6,7 +6,6 @@
     "lint": "npx eslint ."
   },
   "dependencies": {
-    "canvaskit-wasm": "^0.39.1",
     "pixi.js-legacy": "^7.2.4"
   },
   "devDependencies": {

@@ -1,8 +1,9 @@
 import * as PIXI from "pixi.js-legacy";
 import SkiaWrapper from "../services/skia/skia-wrapper";
-import CanvasKitInit from "canvaskit-wasm";
 import "./app.css";
 import lights from "../assets/1.png";
+import CanvasKitInit from "skia";
+import downloadPDF from "../utils/download-pdf";
 
 const pixiApp = new PIXI.Application<HTMLCanvasElement>({
   width: 500,
@@ -58,19 +59,19 @@ subContainer.addChild(g3, g4);
 mainContainer.addChild(subContainer, g2, sprite);
 pixiApp.stage.addChild(mainContainer);
 
-const skiaCanvas = document.createElement("canvas");
-skiaCanvas.width = 500;
-skiaCanvas.height = 400;
-skiaCanvas.id = "skia-canvas";
-document.getElementById("app")?.appendChild(skiaCanvas);
-
 (async () => {
   const canvasKit = await CanvasKitInit({
-    locateFile: (file) => "/node_modules/canvaskit-wasm/bin/" + file,
+    locateFile: (file) => "/libs/skia/bin/" + file,
   });
-  const surface = canvasKit.MakeSWCanvasSurface(skiaCanvas);
-  if (surface) {
-    const skiaWrapper = new SkiaWrapper(canvasKit, surface);
-    skiaWrapper.render(mainContainer);
-  }
+  const skiaCanvas = document.createElement("canvas");
+  skiaCanvas.width = 500;
+  skiaCanvas.height = 400;
+  skiaCanvas.id = "skia-canvas";
+  document.getElementById("app")?.appendChild(skiaCanvas);
+  const skiaWrapper = new SkiaWrapper(canvasKit);
+  skiaWrapper.render(mainContainer, skiaCanvas);
+  const button = document.getElementById("pdf-button") as HTMLButtonElement;
+  button.addEventListener("click", () => {
+    downloadPDF(skiaWrapper.generatePDF());
+  });
 })();

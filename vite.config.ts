@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import * as path from "node:path";
 
 export default defineConfig({
   server: {
@@ -6,5 +7,10 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
+  },
+  resolve: {
+    alias: {
+      skia: path.resolve(__dirname, "libs/skia"),
+    },
   },
 });

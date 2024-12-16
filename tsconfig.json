@@ -9,7 +9,15 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "skia": ["libs/skia"]
+    }
   },
-  "include": ["src/**/*", "custom.d.ts"]
+  "include": [
+    "src/**/*",
+    "custom.d.ts",
+    "libs/skia/canvaskit.d.ts"
+  ],
 }

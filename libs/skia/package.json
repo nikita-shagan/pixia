@@ -1,0 +1,15 @@
+{
+  "name": "skia",
+  "version": "0.0.1",
+  "description": "A WASM version of Skia's Canvas API with PDF support",
+  "main": "./bin/canvaskit.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./bin/canvaskit.js",
+      "import": "./bin/canvaskit.js",
+      "types": "./types/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  }
+}

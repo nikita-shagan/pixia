@@ -1,20 +1,30 @@
-import * as PIXI from "pixi.js";
-import * as SKIA from "canvaskit-wasm";
+import * as PIXI from "pixi.js-legacy";
+import * as SKIA from "skia";
 
 export default class SkiaWrapper {
   private canvasKit: SKIA.CanvasKit;
-  private surface: SKIA.Surface;
+  private commandsForPDF: string[];
 
-  constructor(canvasKit: SKIA.CanvasKit, surface: SKIA.Surface) {
+  constructor(canvasKit: SKIA.CanvasKit) {
     this.canvasKit = canvasKit;
-    this.surface = surface;
+    this.commandsForPDF = [];
   }
 
-  render(container: PIXI.Container): void {
-    const canvas = this.surface.getCanvas();
-    canvas.clear(this.canvasKit.Color(0, 0, 0, 1));
-    this.renderContainer(container, canvas);
-    this.surface.flush();
+  render(
+    container: PIXI.Container,
+    htmlCanvas: string | HTMLCanvasElement,
+  ): void {
+    const surface = this.canvasKit.MakeSWCanvasSurface(htmlCanvas);
+    if (surface) {
+      const canvas = surface.getCanvas();
+      canvas.clear(this.canvasKit.Color(0, 0, 0, 1));
+      this.renderContainer(container, canvas);
+      surface.flush();
+    }
+  }
+
+  generatePDF(): BlobPart {
+    return this.canvasKit._drawPDF(this.commandsForPDF.join());
   }
 
   private renderContainer(
