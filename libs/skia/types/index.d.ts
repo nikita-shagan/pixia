@@ -573,9 +573,6 @@ export interface CanvasKit {
     readonly UnderlineDecoration: number;
     readonly OverlineDecoration: number;
     readonly LineThroughDecoration: number;
-
-    foobar(): string;
-    _drawPDF(commands: string): string;
 }
 
 export interface Camera {
@@ -1368,6 +1365,11 @@ export interface Canvas extends EmbindObject<"Canvas"> {
      * @param color
      */
     clear(color: InputColor): void;
+
+    /**
+     * Returns raw PDF data that can be converted into a PDF file.
+     */
+    makePDF(): BlobPart;
 
     /**
      * Replaces clip with the intersection or difference of the current clip and path,
