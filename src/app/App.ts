@@ -49,7 +49,7 @@ export default class App {
 
   private async _initCanvasKit() {
     return await CanvasKitInit({
-      locateFile: (file) => `/libs/skia/bin/${file}`,
+      locateFile: (file) => `/${file}`,
     });
   }
 
