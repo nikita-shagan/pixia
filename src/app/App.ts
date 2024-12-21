@@ -32,6 +32,7 @@ export default class App {
       );
       this._setupEventListeners();
       this._containerRenderer.renderOnScreen();
+      document.querySelector(".mask")?.classList.add("mask_hidden");
     } catch (error) {
       console.error("Failed to initialize App:", error);
     }
