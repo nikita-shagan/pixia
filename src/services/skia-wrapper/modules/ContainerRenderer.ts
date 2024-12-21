@@ -61,6 +61,7 @@ export class ContainerRenderer {
     const surface = this._canvasKit.MakeSWCanvasSurface(this._htmlCanvas);
     const canvas = surface?.getCanvas() ?? null;
     if (canvas) {
+      canvas.clear(this._backgroundColor);
       this._renderContainer();
       return canvas.makePDF();
     }
