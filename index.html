@@ -4,18 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixia</title>
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
     <div id="app">
       <div class="controls">
-        <button class="button" id="pdf-button">
-          Export to PDF
+        <button class="button" id="random-graphic-button">
+          Добавить объект
         </button>
-        <button class="button">
-          Add Random Image
+        <button class="button" id="pdf-button">
+          Экспорт в ПДФ
         </button>
       </div>
+      <div class="views">
+        <div class="canvas-container" id="pixi-canvas-container">
+
+        </div>
+        <div class="canvas-container" id="skia-canvas-container">
+
+        </div>
+      </div>
     </div>
-    <script type="module" src="src/app/app.ts"></script>
+    <script type="module" src="./index.ts"></script>
   </body>
 </html>

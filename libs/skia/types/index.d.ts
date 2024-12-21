@@ -1,6 +1,3 @@
-// Minimum TypeScript Version: 4.4
-/// <reference types="@webgpu/types" />
-
 export default function CanvasKitInit(opts?: CanvasKitInitOptions): Promise<CanvasKit>;
 
 export interface CanvasKitInitOptions {
@@ -266,31 +263,6 @@ export interface CanvasKit {
     MakeOnScreenGLSurface(ctx: GrDirectContext, width: number, height: number,
                           colorSpace: ColorSpace, sampleCount?: number, stencil?: number): Surface | null;
 
-    /**
-     * Creates a context that operates over the given WebGPU Device.
-     * @param device
-     */
-    MakeGPUDeviceContext(device: GPUDevice): WebGPUDeviceContext | null;
-
-    /**
-     * Creates a Surface that draws to the given GPU texture.
-     * @param ctx
-     * @param texture - A texture that was created on the GPU device associated with `ctx`.
-     * @param width - Width of the visible region in pixels.
-     * @param height - Height of the visible region in pixels.
-     * @param colorSpace
-     */
-    MakeGPUTextureSurface(ctx: WebGPUDeviceContext, texture: GPUTexture, width: number, height: number,
-                          colorSpace: ColorSpace): Surface | null;
-
-    /**
-     * Creates and configures a WebGPU context for the given canvas.
-     * @param ctx
-     * @param canvas
-     * @param opts
-     */
-    MakeGPUCanvasContext(ctx: WebGPUDeviceContext, canvas: HTMLCanvasElement,
-                         opts?: WebGPUCanvasOptions): WebGPUCanvasContext | null;
 
     /**
      * Creates a Surface backed by the next available texture in the swapchain associated with the
@@ -2418,7 +2390,7 @@ export interface Path extends EmbindObject<"Path"> {
      *
      * @param x       center of circle
      * @param y       center of circle
-     * @param radius  distance from center to edge
+     * @param r       radius of circle
      * @param isCCW - if the path should be drawn counter-clockwise or not
      * @return        reference to SkPath
      */
@@ -3316,14 +3288,6 @@ export interface WebGLOptions {
     stencil?: number;
 }
 
-/**
- * Options for configuring a canvas WebGPU context. If an option is omitted, a default specified by
- * the WebGPU standard will be used.
- */
-export interface WebGPUCanvasOptions {
-    format?: GPUTextureFormat;
-    alphaMode?: GPUCanvasAlphaMode;
-}
 
 export interface DefaultConstructor<T> {
     new (): T;
