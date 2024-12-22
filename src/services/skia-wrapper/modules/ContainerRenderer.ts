@@ -6,6 +6,13 @@ import { SpriteRenderer } from "./SpriteRenderer";
 import { HitRegionsManager } from "./HitRegionsManager";
 import { ListenersManager } from "./ListenersManager";
 
+/**
+ * Class for rendering PIXI.Container on SKIA.Canvas, or on PDF canvas
+ * @param canvasKit – skia wasm canvas kit
+ * @param pixiContainer – PIXI.Container to render
+ * @param htmlCanvas – html canvas for skia on which to render
+ * @param backgroundColor – fill color of canvas
+ */
 export class ContainerRenderer {
   private readonly _canvasKit: SKIA.CanvasKit;
   private readonly _pixiContainer: PIXI.Container;
@@ -48,6 +55,9 @@ export class ContainerRenderer {
     );
   }
 
+  /**
+   * Renders PIXI.Container on screen
+   */
   renderOnScreen(): void {
     setTimeout(() => {
       this._hitRegionsManager.mapObjectsToRegions(this._pixiContainer);
@@ -57,6 +67,10 @@ export class ContainerRenderer {
     }, 10);
   }
 
+  /**
+   * Renders PIXI.Container on inner wasm skia canvas and creates pdf document
+   * @return pdf bytes of created pdf document
+   */
   renderOnPDF(): BlobPart | void {
     const surface = this._canvasKit.MakeSWCanvasSurface(this._htmlCanvas);
     const canvas = surface?.getCanvas() ?? null;

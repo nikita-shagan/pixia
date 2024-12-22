@@ -1,7 +1,16 @@
 import * as PIXI from "pixi.js-legacy";
 import * as SKIA from "skia";
 
+/**
+ * Class for converting PIXI shapes to skia objects.
+ */
 export class ShapeConverter {
+  /**
+   * Converts PIXI.Polygon to SKIA.Path
+   * @param canvasKit skia wasm canvas kit
+   * @param shape PIXI.Polygon object
+   * @return SKIA.Path object
+   */
   static convertPolygon(
     canvasKit: SKIA.CanvasKit,
     shape: PIXI.Polygon,
@@ -15,6 +24,12 @@ export class ShapeConverter {
     return path;
   }
 
+  /**
+   * Converts PIXI.Rectangle to SKIA.RRect
+   * @param canvasKit skia wasm canvas kit
+   * @param shape PIXI.Rectangle object
+   * @return SKIA.RRect object
+   */
   static convertRect(
     canvasKit: SKIA.CanvasKit,
     shape: PIXI.Rectangle,
@@ -22,6 +37,12 @@ export class ShapeConverter {
     return canvasKit.XYWHRect(shape.x, shape.y, shape.width, shape.height);
   }
 
+  /**
+   * Converts PIXI.Circle to SKIA.RRect
+   * @param canvasKit skia wasm canvas kit
+   * @param shape PIXI.Circle object
+   * @return SKIA.RRect object
+   */
   static convertCirc(
     canvasKit: SKIA.CanvasKit,
     shape: PIXI.Circle,
@@ -34,6 +55,12 @@ export class ShapeConverter {
     );
   }
 
+  /**
+   * Converts PIXI.Ellipse to SKIA.RRect
+   * @param canvasKit skia wasm canvas kit
+   * @param shape PIXI.Ellipse object
+   * @return SKIA.RRect object
+   */
   static convertElip(
     canvasKit: SKIA.CanvasKit,
     shape: PIXI.Ellipse,
@@ -46,6 +73,12 @@ export class ShapeConverter {
     );
   }
 
+  /**
+   * Converts PIXI.RoundedRectangle to SKIA.RRect
+   * @param canvasKit skia wasm canvas kit
+   * @param shape PIXI.RoundedRectangle object
+   * @return SKIA.RRect object
+   */
   static convertRRect(
     canvasKit: SKIA.CanvasKit,
     shape: PIXI.RoundedRectangle,

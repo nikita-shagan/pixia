@@ -1,6 +1,16 @@
 import * as SKIA from "skia";
 
+/**
+ * Class for color converting.
+ */
 export class ColorConverter {
+  /**
+   * Converts PIXI color number or string to Skia color object
+   * @param canvasKit skia wasm canvas kit
+   * @param color in decimal or hex format
+   * @param alpha transparency of a new color
+   * @return SKIA.Color object
+   */
   public static convertColor(
     canvasKit: SKIA.CanvasKit,
     color: number | string,

@@ -3,7 +3,16 @@ import * as SKIA from "skia";
 import { StyleConverter } from "./StyleConverter";
 import { ShapeConverter } from "./ShapeConverter";
 
+/**
+ * Class for rendering PIXI.Graphics on SKIA.Canvas.
+ */
 export class GraphicsRenderer {
+  /**
+   * Renders PIXI.Graphics to SKIA.Canvas
+   * @param canvasKit skia wasm canvas kit
+   * @param canvas SKIA.Canvas object on which to draw
+   * @param graphics PIXI.Graphics to draw
+   */
   static render(
     canvasKit: SKIA.CanvasKit,
     canvas: SKIA.Canvas,

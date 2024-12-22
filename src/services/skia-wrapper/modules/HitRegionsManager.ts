@@ -5,11 +5,18 @@ type HitRegionListener = {
   type: string;
 };
 
+/**
+ * Pixi listeners and callback to determine, should apply those listeners or not.
+ */
 export type HitRegion = {
   shouldApplyListeners: (clickPoint: Pixi.Point) => boolean;
   listeners: HitRegionListener[];
 };
 
+/**
+ * Constructs a class for tracking mouse clicks on Pixi.Container.
+ * @param eventTypes - event types to track, such as "pointerdown" or "pointerup"
+ */
 export class HitRegionsManager {
   private readonly _eventTypes: (keyof Pixi.FederatedEventMap)[];
   private _hitRegions: HitRegion[] = [];
@@ -22,6 +29,11 @@ export class HitRegionsManager {
     return this._hitRegions;
   }
 
+  /**
+   * Goes through Pixi.Container and attaches hit test callback alongside with
+   * listeners to call if the region was clicked
+   * @param container - Pixi.Container to process.
+   */
   mapObjectsToRegions(container: Pixi.Container): void {
     this._hitRegions = [];
     container.children.forEach((displayObject) => {

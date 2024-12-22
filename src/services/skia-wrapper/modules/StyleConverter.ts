@@ -2,7 +2,16 @@ import * as SKIA from "skia";
 import * as PIXI from "pixi.js-legacy";
 import { ColorConverter } from "./ColorConverter";
 
+/**
+ * Class for converting PIXI styles to Skia.Paint.
+ */
 export class StyleConverter {
+  /**
+   * Class for converting PIXI.FillStyle to SKIA.Paint.
+   * @param canvasKit skia wasm canvas kit
+   * @param fillStyle PIXI.FillStyle object to convert
+   * @return SKIA.Paint object
+   */
   public static convertFillStyle(
     canvasKit: SKIA.CanvasKit,
     fillStyle: PIXI.FillStyle,
@@ -19,6 +28,12 @@ export class StyleConverter {
     return paint;
   }
 
+  /**
+   * Class for converting PIXI.LineStyle to SKIA.Paint.
+   * @param canvasKit skia wasm canvas kit
+   * @param lineStyle PIXI.LineStyle object to convert
+   * @return SKIA.Paint object
+   */
   public static convertLineStyle(
     canvasKit: SKIA.CanvasKit,
     lineStyle: PIXI.LineStyle,
