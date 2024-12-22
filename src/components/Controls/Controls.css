@@ -4,11 +4,12 @@
     align-items: center;
     min-height: 150px;
     gap: 30px;
-    padding: 20px 10px
+    padding: 20px;
 }
 
 @media screen and (max-width: 720px) {
     .controls {
+        flex-direction: column;
         gap: 15px;
         min-height: 0;
     }

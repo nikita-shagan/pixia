@@ -43,7 +43,7 @@ export const calculateViewWindow = (width: number) => {
   if (width > RESOLUTION_THRESHOLDS.SMALL) {
     return { width: 300, height: 200 };
   }
-  return { width: 300, height: 300 };
+  return { width: 300, height: 200 };
 };
 
 export const downloadPDF = (pdfBytes: BlobPart) => {
