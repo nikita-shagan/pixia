@@ -32,6 +32,11 @@ export default async function App(): Promise<HTMLElement> {
     if (pdfBytes) downloadPDF(pdfBytes);
   };
 
+  const handleClearClick = () => {
+    pixiTopContainer.removeChildren();
+    skiaRenderer.renderOnScreen();
+  };
+
   skiaRenderer.renderOnScreen();
 
   return createElement(
@@ -41,6 +46,7 @@ export default async function App(): Promise<HTMLElement> {
       children: [
         Button({ onClick: handleAddObjectClick, text: "Добавить объект" }),
         Button({ onClick: handleExportPdfClick, text: "Экспорт в ПДФ" }),
+        Button({ onClick: handleClearClick, text: "Очистить" }),
       ],
     }),
     Views({
