@@ -1,6 +1,8 @@
 import App from "./src/app/App";
 
-(async () => {
-  const app = new App();
-  await app.init();
-})();
+document.addEventListener("DOMContentLoaded", async () => {
+  const root = document.getElementById("app");
+  if (root) {
+    root.replaceWith(await App());
+  }
+});

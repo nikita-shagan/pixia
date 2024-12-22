@@ -1,5 +1,38 @@
 import { RESOLUTION_THRESHOLDS } from "./constants";
 
+export function createElement(
+  tag: string,
+  props: Record<
+    string,
+    string | number | boolean | ((event: Event) => void)
+  > = {},
+  ...children: (HTMLElement | string)[]
+): HTMLElement {
+  const element = document.createElement(tag);
+
+  Object.entries(props).forEach(([key, value]) => {
+    if (key.startsWith("on") && typeof value === "function") {
+      const event = key.slice(2).toLowerCase();
+      element.addEventListener(event, value);
+    } else if (key === "className") {
+      element.className = value as string;
+    } else {
+      console.log(key, value);
+      element.setAttribute(key, String(value));
+    }
+  });
+
+  children.forEach((child) => {
+    if (typeof child === "string") {
+      element.appendChild(document.createTextNode(child));
+    } else {
+      element.appendChild(child);
+    }
+  });
+
+  return element;
+}
+
 export const calculateViewWindow = (width: number) => {
   if (width > RESOLUTION_THRESHOLDS.LARGE) {
     return { width: 600, height: 500 };

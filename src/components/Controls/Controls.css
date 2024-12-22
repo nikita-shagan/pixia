@@ -1,0 +1,15 @@
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    gap: 30px;
+    padding: 20px 10px
+}
+
+@media screen and (max-width: 720px) {
+    .controls {
+        gap: 15px;
+        min-height: 0;
+    }
+}
