@@ -17,7 +17,6 @@ export function createElement(
     } else if (key === "className") {
       element.className = value as string;
     } else {
-      console.log(key, value);
       element.setAttribute(key, String(value));
     }
   });
@@ -57,3 +56,29 @@ export const downloadPDF = (pdfBytes: BlobPart) => {
   document.body.removeChild(downloadLink);
   URL.revokeObjectURL(pdfUrl);
 };
+
+export async function monitorFileLoading(
+  url: string,
+  onProgress: (progress: number) => void,
+): Promise<string> {
+  const response = await fetch(url);
+  const total = +(response.headers.get("Content-Length") || 0);
+
+  if (!response.body) {
+    console.warn("Streaming not supported or Content-Length not available.");
+    onProgress(1);
+    return url;
+  }
+
+  const reader = response.body.getReader();
+  let loaded = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    loaded += value?.length || 0;
+    onProgress(loaded / total);
+  }
+
+  return url;
+}

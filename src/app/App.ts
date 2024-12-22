@@ -1,3 +1,4 @@
+import * as SKIA from "skia";
 import { createElement, downloadPDF } from "../utils/funtions";
 import Button from "../components/Button/Button";
 import CanvasContainer from "../components/CanvasContainer/CanvasContainer";
@@ -5,17 +6,19 @@ import Views from "../components/Views/Views";
 import Controls from "../components/Controls/Controls";
 import usePixiApp from "../hooks/usePixiApp";
 import useSkiaWrapper from "../hooks/useSkiaWrapper";
-import useCanvasKit from "../hooks/useCanvasKit";
 import useViewWindow from "../hooks/useViewWindow";
 import useRandomObjectsGenerator from "../hooks/useRandomObjectsGenerator";
 import "./App.css";
 
-export default async function App(): Promise<HTMLElement> {
-  const canvasKit = await useCanvasKit();
+export default function App({
+  canvasKit,
+}: {
+  canvasKit: SKIA.CanvasKit;
+}): HTMLElement {
   const viewWindow = useViewWindow();
   const { pixiApp, pixiTopContainer } = usePixiApp(viewWindow);
   const { pixiTopContainer: virtualPixiTopContainer } = usePixiApp(viewWindow);
-  const { skiaRenderer, skiaCanvas } = await useSkiaWrapper(
+  const { skiaRenderer, skiaCanvas } = useSkiaWrapper(
     virtualPixiTopContainer,
     canvasKit,
     viewWindow,

@@ -4,14 +4,14 @@ import { createElement } from "../utils/funtions";
 import { ContainerRenderer } from "../services/skia-wrapper";
 import { CANVAS_VIEW_DEFAULT } from "../utils/constants";
 
-export default async function useSkiaWrapper(
+export default function useSkiaWrapper(
   pixiContainer: PIXI.Container,
   canvasKit: SKIA.CanvasKit,
   viewWindow: {
     width: number;
     height: number;
   },
-): Promise<{ skiaRenderer: ContainerRenderer; skiaCanvas: HTMLCanvasElement }> {
+): { skiaRenderer: ContainerRenderer; skiaCanvas: HTMLCanvasElement } {
   const skiaCanvas = createElement("canvas", {
     style: `background: ${CANVAS_VIEW_DEFAULT.background}`,
     width: `${viewWindow.width}px`,
