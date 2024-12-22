@@ -9,8 +9,14 @@
 
 @media screen and (max-width: 720px) {
     .controls {
-        flex-direction: column;
-        gap: 15px;
+        position: fixed;
+        gap: 5px;
         min-height: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        border-top: 1px solid #fff;
+        background: #181a1b;
+        padding: 15px;
     }
 }

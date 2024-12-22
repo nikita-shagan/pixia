@@ -26,10 +26,10 @@
 
 @media screen and (max-width: 720px) {
     .button {
-        padding: 12px 12px;
-        font-size: 14px;
-        width: 100%;
-        max-width: 250px;
+        padding: 4px 4px;
+        font-size: 10px;
+        min-width: 0;
+        flex-grow: 1;
     }
 }
 
