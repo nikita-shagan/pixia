@@ -17,33 +17,35 @@ export class PixiObjectsGenerator {
   private readonly _graphicsGenerator: PixiGraphicsGenerator;
   private readonly _objectTransformer: PixiObjectTransformer;
   private readonly _spriteChance: number;
+  private readonly _listenersApplier: PixiListenersApplier;
 
   constructor(
     imagesForSprite: Pixi.SpriteSource[],
     windowSize: { width: number; height: number },
     shapeSizeMulti: number = 50,
     scaleMulti: number = 1.1,
-    spriteChance: number = 0,
+    spriteChance: number = 0.1,
   ) {
     this._spriteGenerator = new PixiSpriteGenerator(imagesForSprite);
     this._graphicsGenerator = new PixiGraphicsGenerator(shapeSizeMulti);
     this._objectTransformer = new PixiObjectTransformer(windowSize, scaleMulti);
+    this._listenersApplier = new PixiListenersApplier();
     this._spriteChance = spriteChance;
   }
 
   /**
-   * Returns a random Pixi Display Object.
+   * Returns an array of random Pixi Display Objects.
    */
-  public createRandomObject(): Pixi.DisplayObject {
-    let object: Pixi.DisplayObject;
+  public createRandomObjects(copies: number = 1): Pixi.DisplayObject[] {
     const shouldGenerateSprite = Math.random() < this._spriteChance;
     if (shouldGenerateSprite) {
-      object = this._spriteGenerator.createRandomSprite();
-    } else {
-      object = this._graphicsGenerator.createRandomGraphics();
+      const sprites = this._spriteGenerator.createRandomSprites(copies);
+      this._listenersApplier.applyEventListeners(sprites);
+      return sprites;
     }
-    this._objectTransformer.applyAllRandomTransformations(object);
-    PixiListenersApplier.applyEventListeners(object);
-    return object;
+    const graphics = this._graphicsGenerator.createRandomGraphics(copies);
+    this._listenersApplier.applyEventListeners(graphics);
+    this._objectTransformer.applyAllRandomTransformations(graphics);
+    return graphics;
   }
 }

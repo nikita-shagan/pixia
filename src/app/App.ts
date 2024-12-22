@@ -6,24 +6,26 @@ import Controls from "../components/Controls/Controls";
 import usePixiApp from "../hooks/usePixiApp";
 import useSkiaWrapper from "../hooks/useSkiaWrapper";
 import useCanvasKit from "../hooks/useCanvasKit";
+import useViewWindow from "../hooks/useViewWindow";
 import useRandomObjectsGenerator from "../hooks/useRandomObjectsGenerator";
 import "./App.css";
-import useViewWindow from "../hooks/useViewWindow";
 
 export default async function App(): Promise<HTMLElement> {
   const canvasKit = await useCanvasKit();
   const viewWindow = useViewWindow();
-  const randomObjectsGenerator = useRandomObjectsGenerator(viewWindow);
   const { pixiApp, pixiTopContainer } = usePixiApp(viewWindow);
+  const { pixiTopContainer: virtualPixiTopContainer } = usePixiApp(viewWindow);
   const { skiaRenderer, skiaCanvas } = await useSkiaWrapper(
-    pixiTopContainer,
+    virtualPixiTopContainer,
     canvasKit,
     viewWindow,
   );
+  const randomObjectsGenerator = useRandomObjectsGenerator(viewWindow);
 
   const handleAddObjectClick = () => {
-    const randomObject = randomObjectsGenerator.createRandomObject();
-    pixiTopContainer.addChild(randomObject);
+    const [o1, o2] = randomObjectsGenerator.createRandomObjects(2);
+    virtualPixiTopContainer.addChild(o1);
+    pixiTopContainer.addChild(o2);
     skiaRenderer.renderOnScreen();
   };
 
@@ -34,6 +36,7 @@ export default async function App(): Promise<HTMLElement> {
 
   const handleClearClick = () => {
     pixiTopContainer.removeChildren();
+    virtualPixiTopContainer.removeChildren();
     skiaRenderer.renderOnScreen();
   };
 

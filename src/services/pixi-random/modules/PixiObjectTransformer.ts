@@ -19,43 +19,54 @@ export class PixiObjectTransformer {
 
   /**
    * Applies random rotation, position and scale to display object
-   * @param displayObject - pixi display object to transform
+   * @param displayObjects - pixi display objects to transform
    */
   public applyAllRandomTransformations(
-    displayObject: PIXI.DisplayObject,
+    displayObjects: PIXI.DisplayObject[],
   ): void {
-    this.applyRandomRotation(displayObject);
-    this.applyRandomPosition(displayObject);
-    this.applyRandomScale(displayObject);
+    const randomPosition = this.getRandomPosition();
+    const randomRotation = this.getRandomRotation();
+    const randomScale = this.getRandomScale();
+    displayObjects.forEach((displayObject) => {
+      displayObject.position.set(randomPosition.x, randomPosition.y);
+      displayObject.rotation = randomRotation;
+      displayObject.scale.set(randomScale.x, randomScale.y);
+    });
   }
 
   /**
-   * Applies a random rotation  to display object
-   * @param displayObject - pixi display object to rotate
+   * Creates a random rotation
+   * @return random angle from 0 to 360
    */
-  public applyRandomRotation(displayObject: PIXI.DisplayObject): void {
-    displayObject.angle = Math.random() * 360;
+  public getRandomRotation(): number {
+    return Math.random() * 360;
   }
 
   /**
-   * Applies a random position to display object
-   * @param displayObject - pixi display object to reposition
+   * Creates a random position
+   * @return random position { x: number, y: number }
    */
-  public applyRandomPosition(displayObject: PIXI.DisplayObject): void {
-    displayObject.position.set(
-      Math.random() * this._windowSize.width,
-      Math.random() * this._windowSize.height,
-    );
+  public getRandomPosition(): {
+    x: number;
+    y: number;
+  } {
+    return {
+      x: Math.random() * this._windowSize.width,
+      y: Math.random() * this._windowSize.height,
+    };
   }
 
   /**
-   * Applies a random scale to display object
-   * @param displayObject - pixi display object to scale
+   * Creates a random scale
+   * @return random scale { x: number, y: number }
    */
-  public applyRandomScale(displayObject: PIXI.DisplayObject): void {
-    displayObject.scale.set(
-      Math.random() * this._scaleMulti + 0.5,
-      Math.random() * this._scaleMulti + 0.5,
-    );
+  public getRandomScale(): {
+    x: number;
+    y: number;
+  } {
+    return {
+      x: Math.random() * this._scaleMulti + 0.5,
+      y: Math.random() * this._scaleMulti + 0.5,
+    };
   }
 }

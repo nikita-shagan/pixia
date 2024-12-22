@@ -14,7 +14,8 @@ export class PixiGraphicsGenerator {
   /**
    * Returns a random Pixi Graphics.
    */
-  public createRandomGraphics(): PIXI.Graphics {
+  public createRandomGraphics(copies: number): PIXI.Graphics[] {
+    const res: PIXI.Graphics[] = [];
     const g = new PIXI.Graphics();
     const strokeColor = Math.floor(Math.random() * 0xffffff);
     const strokeWidth = Math.random() * 5 + 1;
@@ -40,7 +41,10 @@ export class PixiGraphicsGenerator {
       }
     }
     g.endFill();
-    return g;
+    for (let i = 0; i < copies; i++) {
+      res.push(g.clone());
+    }
+    return res;
   }
 
   private _createRandomCircle(): PIXI.Circle {
